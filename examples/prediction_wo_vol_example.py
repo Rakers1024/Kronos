@@ -31,14 +31,14 @@ tokenizer = KronosTokenizer.from_pretrained("NeoQuasar/Kronos-Tokenizer-base")
 model = Kronos.from_pretrained("NeoQuasar/Kronos-small")
 
 # 2. Instantiate Predictor
-predictor = KronosPredictor(model, tokenizer, device="cuda:0", max_context=512)
+predictor = KronosPredictor(model, tokenizer, device="mps", max_context=512)
 
 # 3. Prepare Data
 df = pd.read_csv("./data/XSHG_5min_600977.csv")
 df['timestamps'] = pd.to_datetime(df['timestamps'])
 
-lookback = 400
-pred_len = 120
+lookback = 200
+pred_len = 10
 
 x_df = df.loc[:lookback-1, ['open', 'high', 'low', 'close']]
 x_timestamp = df.loc[:lookback-1, 'timestamps']
